@@ -65,14 +65,20 @@ or any cloud project beyond BigQuery or Sheets, I would also strongly recommend 
 Here are the docs to launch this process:
 https://cloud.google.com/appengine/docs/standard/nodejs/building-app/creating-project
 
+I would also alert that in order to do this case, you need to be somewhat familiar with the terminal language.
+
+In a future script, I can share terminal code that you can use in Google's PowerShell or the command prompt
+of whatever package manager you are using. 
+
 Case 2 --> 
 For all the projects strictly using BigQuery or Sheets, often specifically for ETLs, ELTs, or 
 more complex analysis projects, go to this link: https://console.cloud.google.com/
 
 Below are the steps to help guide this process:
-    Step 1: Click Sign up for free (you won't need to put in your payment information)
-    Step 2:  
-
+    Step 1: Click Sign up for free (you will need to put in your payment information, but unless you
+                                    start a virtual-machine you won't ever get billed')
+    Step 2: After signing up Click on 'Console' in the upper right hand corner 
+    Step 3:
 
  
 """
