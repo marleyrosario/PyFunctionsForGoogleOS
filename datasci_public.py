@@ -234,8 +234,6 @@ the workbooks in a google sheet at once.
 
 This function will return a list of dataframes!!
 """
-tabs_of_google_sheet = ['Tab One', 'Tab Two', 'Tab Three']
-
 def links_to_list(sheet_url, sheet_tabs):
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/spreadsheets",
              "https://www.googleapis.com/auth/drive.file", "https://www.googleapis.com/auth/drive"]
@@ -247,7 +245,9 @@ def links_to_list(sheet_url, sheet_tabs):
                 for sheet in sheet_tabs]
     list_of_dfs = [pd.DataFrame(sheet.get_all_records())
                         for sheet in list_of_sheet_dfs]
-    return list_of_sheet_dfs
+    return list_of_dfs
+
+list_of_dfs = links_to_list(sheet_url = "URL", sheet_tabs = ['Tab One', 'Tab Two', 'Tab Three'])
 
 """
 Now if you're good with a list and can use list comprohensions to mess with the dataframes, then you should 
