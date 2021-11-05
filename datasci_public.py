@@ -120,9 +120,36 @@ Below are the steps to help guide this process:
 
 Section 1b: Defining your environment 
 
+Step 1: Define your environment and set a path to the IAM Service account. 
 
 """
-"""
+def choose_user(path, fname):
+    import os
+    user = os.path.join(path, fname)
+    return user 
+
+user = choose_user(path = "PATH", fname = "fname")
+
+# Path is the folder in where your JSON key downloaded to on your computer. 
+# FName is the name of the JSON key. On Windows file explorer, you can for sure click on the folder and then 
+# copy path
 
 """
+Step 2: Creating a Dataframe from BigQuery
 
+"""
+def create_data_frame(path, query_string, project_id='PROJECT_ID'):
+    credentials = service_account.Credentials.from_service_account_file(path)
+    client = bigquery.Client(credentials= credentials,project=project_id)
+    bqstorageclient = bigquery_storage.BigQueryReadClient(credentials=credentials)
+    query_string = "Select {query_string} from {table_id}".format(query_string, table_id)
+    dataframe = (client.query(query_string).result().to_dataframe(bqstorage_client=bqstorageclient))
+    return dataframe
+
+df = create_data_frame(path = user, query_string = query_string, table_id, project_id = 'PROJECT_ID')
+
+"""
+So this function will take any query string that you want in the select statement 
+and any table id from your bigquery dataset and then subsequently uploads it to your environment as a 
+dataframe
+"""
