@@ -194,6 +194,76 @@ The table name can be new or you can overwrite the one you made previously. If t
 a typo or are something different then it will return a table not found error.
 """
 
+"""
+Section 2: Creating a dataframe from Google Sheets
+    - Step 1: Create a new IAM Account. You can follow the steps above and replicate it for a google sheet. 
+"""
+def choose_user_sheets(path, fname):
+    import os
+    user = os.path.join(path, fname)
+    return user 
+
+sheet_user = choose_user_sheets(path = "PATH", fname = "fname")
+
+def google_sheet_to_dataframe(user, sheet_name="Sheet_Name", worksheet="Work_Sheet_Name"):
+    scope=["https://spreadsheets.google.com/feeds","https://www.googleapis.com/auth/spreadsheets" , "https://www.googleapis.com/auth/drive.file", "https://www.googleapis.com/auth/drive"]
+    creds=ServiceAccountCredentials.from_json_keyfile_name(user_2, scope)
+    client=gspread.authorize(creds)
+    sheet=client.open(sheet_name).worksheet(worksheet)
+    df=pd.DataFrame(sheet.get_all_records())
+    return df
+
+df = google_sheet_to_dataframe(user=sheet_user, sheet_name = "Sheet_Name", worksheet = "Work_Sheet_Name")
+
+""" 
+You can also read the dataframe with the URL as well instead of declaring a sheet or a worksheet name.
+"""
+def google_sheet_to_dataframe_url(user, url, sheet):
+    scope=["https://spreadsheets.google.com/feeds","https://www.googleapis.com/auth/spreadsheets" , "https://www.googleapis.com/auth/drive.file", "https://www.googleapis.com/auth/drive"]
+    creds=ServiceAccountCredentials.from_json_keyfile_name(user_2, scope)
+    client=gspread.authorize(creds)
+    sheet=client.open_by_url(sheet_url).worksheet(sheet)
+    df=pd.DataFrame(sheet.get_all_records())
+    return df
+
+df = google_sheet_to_dataframe_url(user=sheet_user, url="url", sheet = "Work_Sheet_Name")
+
+"""
+The neat thing about python is that you can also do this through a list comprohension that grabs all 
+the workbooks in a google sheet at once. 
+
+This function will return a list of dataframes!!
+"""
+tabs_of_google_sheet = ['Tab One', 'Tab Two', 'Tab Three']
+
+def links_to_list(sheet_url, sheet_tabs):
+    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/spreadsheets",
+             "https://www.googleapis.com/auth/drive.file", "https://www.googleapis.com/auth/drive"]
+    creds = ServiceAccountCredentials.from_json_keyfile_name(user, scope)
+    client = gspread.authorize(creds)
+
+    # open each sheet using the url
+    list_of_sheet_dfs = [client.open_by_url(sheet_url).worksheet(sheet)
+                for sheet in sheet_tabs]
+    list_of_dfs = [pd.DataFrame(sheet.get_all_records())
+                        for sheet in list_of_sheet_dfs]
+    return list_of_sheet_dfs
+
+"""
+Now if you're good with a list and can use list comprohensions to mess with the dataframes, then you should 
+be chilling from here. If you are more interested in just having one dataframe and then applying or mapping functions 
+to columns then here is a quick function to merge pandas dataframes in a list by their commonly shared columns. 
+"""
+def merge_dfs_in_a_list(list_of_dfs):
+    list_of_dfs = [pd.DataFrame(sheet.get_all_records())
+                        for sheet in sheet_df]
+    common_cols = list(set.intersection(*(set(df.columns)
+                        for df in IFC_database)))
+    total_links = pd.concat([df[common_cols]
+                                for df in IFC_database], ignore_index=True)
+
+
+
 
 
 
