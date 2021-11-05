@@ -136,7 +136,6 @@ user = choose_user(path = "PATH", fname = "fname")
 
 """
 Step 2: Creating a Dataframe from BigQuery
-
 """
 def create_data_frame(path, query_string, project_id='PROJECT_ID'):
     credentials = service_account.Credentials.from_service_account_file(path)
@@ -151,5 +150,6 @@ df = create_data_frame(path = user, query_string = query_string, table_id, proje
 """
 So this function will take any query string that you want in the select statement 
 and any table id from your bigquery dataset and then subsequently uploads it to your environment as a 
-dataframe
+dataframe. This function works for Select statements only. Any DML SQL language queries will not work. 
 """
+
