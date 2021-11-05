@@ -72,6 +72,8 @@ I would also alert that in order to do this case, you need to be somewhat famili
 In a future script, I can share terminal code that you can use in Google's PowerShell or the command prompt
 of whatever package manager you are using. 
 
+Section 1a: Setting up GCP, BQ and an IAM Service Account 
+
 Case 2 --> Data Science and complex Analysis 
 For all the projects strictly using BigQuery or Sheets, often specifically for ETLs, ELTs, or 
 more complex analysis projects, go to this link: https://console.cloud.google.com/
@@ -108,9 +110,15 @@ Below are the steps to help guide this process:
     IAM Admin and then click "Service Accounts"
     Step 17: Click Create Service Accounts
     Step 18: Give your service account a name. Note: You will have to do two of these - 1 for BQ and 1 for sheets. 
-    Step 19: Grant approval to at the very minimum data editor and reader, for the purposes of this project. Giving yourself
+    Step 19: Grant approval to at the very minimum data editor and reader, for the purposes of this project giving yourself
     admin priviledges doesn't hurt either. 
-    Step 20:
+    Step 20: Create the service account. 
+    Step 21: From here your service account will appear kind of looking like an email in a list of service accounts. Click on the service account you just made
+    Step 22: Go to Keys and click ADD KEY
+    Step 23: Select JSON, and now a JSON key should have been downloaded to your computer. 
+    Step 24: Now to start programming. 
+
+Section 1b: Defining your environment 
 
 
 """
