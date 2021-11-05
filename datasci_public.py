@@ -230,9 +230,8 @@ df = google_sheet_to_dataframe_url(user=sheet_user, url="url", sheet = "Work_She
 
 """
 The neat thing about python is that you can also do this through a list comprohension that grabs all 
-the workbooks in a google sheet at once. 
+the workbooks in a google sheet at once. This function will return a list of dataframes!!
 
-This function will return a list of dataframes!!
 """
 def links_to_list(sheet_url, sheet_tabs):
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/spreadsheets",
