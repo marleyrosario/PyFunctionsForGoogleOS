@@ -153,5 +153,47 @@ and any table id from your bigquery dataset and then subsequently uploads it to 
 dataframe. This function works for Select statements only. Any DML SQL language queries will not work. 
 """
 """
-Now let's say you wanted to extract this dataset and then upload it to 
+Now let's say you wanted to extract this dataset and add a column and then send the resulting dataframe to Big Query.
+
+A common purpose for this would be to do BigData batch operations or for ETLs where your database is BigQuery.
+
+Here's a cool function you can use to send data back to BigQuery from a dataframe.
+
+"""
+
+df['New_Column'] = "Random Data"
+
+def send_data_to_bq(path, dataframe, table_id, field_name, project_id ='PROJECT_ID'):
+    # establishing authentication
+    credentials = service_account.Credentials.from_service_account_file(path)
+    client = bigquery.Client(credentials= credentials,project=project_id)
+    job_config = bigquery.LoadJobConfig(schema = [bigquery.SchemaField(field_name, 
+    bigquery.enums.SqlTypeNames.STRING)],write_disposition = "WRITE_TRUNCATE")
+    #loading the data from BQ table to pandas dataframe with all the parameters set to your variables
+    job = client.load_table_from_dataframe(dataframe, table_id, job_config=job_config)
+    # telling python to map the client name equal to the code name based on dictionary key:values
+    job.result()
+     # making an API request.
+    table = client.get_table(table_id)
+
+send_data_to_bq(path = user, df =  df, field_name = "field_name", table_id = "table_id", project_id= 'PROJECT_ID')
+
+"""
+So this function is pretty strong in my opinion and has a lot of different applications. 
+
+Set your new dataframe into the function and then declare a field name for BQ to understand where 
+to start reading the schema (column headers in datasci - speak). 
+
+Make sure that the field you set is a String value. On line 171 using the enums part of the bigquery
+package, I am sure you could change it to be an INT value but for sure FLOAT's and BOOL's do not work. 
+
+From there just load up the table_id and you should be perfectly fine and see the dataset in Bigquery under the
+table you made. 
+
+The table name can be new or you can overwrite the one you made previously. If the dataset and project_id have 
+a typo or are something different then it will return a table not found error.
+"""
+
+
+
 
