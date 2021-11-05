@@ -254,13 +254,16 @@ Now if you're good with a list and can use list comprohensions to mess with the 
 be chilling from here. If you are more interested in just having one dataframe and then applying or mapping functions 
 to columns then here is a quick function to merge pandas dataframes in a list by their commonly shared columns. 
 """
-def merge_dfs_in_a_list(list_of_dfs):
-    list_of_dfs = [pd.DataFrame(sheet.get_all_records())
-                        for sheet in sheet_df]
+def merge_dfs_in_a_list(list_of_dfs):  
     common_cols = list(set.intersection(*(set(df.columns)
-                        for df in IFC_database)))
-    total_links = pd.concat([df[common_cols]
-                                for df in IFC_database], ignore_index=True)
+                        for df in list_of_dfs)))
+    full_df = pd.concat([df[common_cols]
+                                for df in list_of_dfs], ignore_index=True)
+
+    return full_df
+
+full_df = merge_dfs_in_a_list(full_df)
+                            
 
 
 
