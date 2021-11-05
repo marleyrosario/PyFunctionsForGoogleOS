@@ -85,7 +85,22 @@ Below are the steps to help guide this process:
     Step 5: There you will see the technical name for your project. Often times, its two random names 
     concatenated with an emdash like "nonsense-simpson" and then an emdash and then a 6 digit number. A full example
     would be "nonsense-simpson-111222". 
-    Step 6: 
+    Step 6: Create a dataset 
+    Step 7: Once you've given your dataset a title, it will appear under your first pinned project, in the explorer
+    of the SQL Workspace. 
+    Step 8: From there, click on the dataset and then create a table.
+    Step 9: Creating a table is a bit tricky. What file you are uploading will change how the process goes about
+    and what not. In future files, I can explain the differences, but for the purposes of this blog, we will start with a 
+    csv.
+    Step 10: Click upload and then select a file. NOTE: In the columns of the csv (keys in a dictionary or AVRO file but again not for this project), 
+    make sure there are no weird headers. Things that could make BQ return an error would be columns with non-alphanumeric characters. 
+    Step 11: Give the table a name, again no non-alphanumeric characters
+    Step 12: Generally, I go to Advanced Options and set the number of errors equal to number of rows of the file I am trying to upload. 
+    This will make sure BigQuery will allow on the table in order to be uploaded in the first place. If there is a type error (an error that basically says
+    the data type for a cell is incorrect relative to the rest of the column), Big Query will return it to us on a general query. 
+    
+
+
 """
 """
 
