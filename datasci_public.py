@@ -152,4 +152,6 @@ So this function will take any query string that you want in the select statemen
 and any table id from your bigquery dataset and then subsequently uploads it to your environment as a 
 dataframe. This function works for Select statements only. Any DML SQL language queries will not work. 
 """
+"""
+Now let's say you wanted to extract this dataset and then upload it to 
 
